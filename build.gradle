@@ -1,0 +1,55 @@
+buildscript {
+    ext {
+        kotlin_version = '1.4.0'
+        serenity_version = '2.1.5'
+        serenity_cucumber4_version = '2.1.2'
+    }
+    repositories {
+        mavenCentral()
+        jcenter()
+        dependencies {
+            classpath "net.serenity-bdd:serenity-gradle-plugin:$serenity_version"
+            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        }
+    }
+}
+
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.3.72'
+}
+
+apply plugin: 'kotlin'
+apply plugin: 'net.serenity-bdd.aggregator'
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile 'org.slf4j:slf4j-simple:1.7.7'
+    compile "net.serenity-bdd:serenity-core:$serenity_version"
+    compile "net.serenity-bdd:serenity-junit:$serenity_version"
+    compile "net.serenity-bdd:serenity-screenplay:$serenity_version"
+    compile "net.serenity-bdd:serenity-cucumber4:$serenity_cucumber4_version"
+    compile "net.serenity-bdd:serenity-screenplay-rest:$serenity_version"
+    compile 'junit:junit:4.12'
+    compile 'org.assertj:assertj-core:3.6.2'
+    implementation group: 'io.appium', name: 'java-client', version: '7.5.1'
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+gradle.startParameter.continueOnFailure = true
